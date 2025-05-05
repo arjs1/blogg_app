@@ -1,7 +1,9 @@
+import 'package:firebase_connection_project/core/firebase/AuthServices/auth_services.dart';
 import 'package:firebase_connection_project/pages/ProfilePage/widgets/data_container.dart';
 import 'package:firebase_connection_project/pages/ProfilePage/widgets/tab_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -13,6 +15,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    final userData = Provider.of<AuthServices>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -21,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Column(
               children: [
                 Text(
-                  "Username",
+                  userData.userName.toString(),
                   style: GoogleFonts.poppins(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,

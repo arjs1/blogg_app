@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_connection_project/core/auth_layout.dart';
 import 'package:firebase_connection_project/core/firebase/AuthServices/auth_services.dart';
+import 'package:firebase_connection_project/core/firebase/DatabaseServices/user_database.dart';
 import 'package:firebase_connection_project/pages/LoginPage/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,6 +25,13 @@ class _SignupPageState extends State<SignupPage> {
     try {
       await Provider.of<AuthServices>(context, listen: false).createUser(
           email: emailController.text, password: passwordController.text);
+
+      Provider.of<AuthServices>(context, listen: false).setProfileData(
+          username: usernameController.text,
+          gender: _selectedGender,
+          email: emailController.text);
+
+      UserDatabase().saveUserData(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(

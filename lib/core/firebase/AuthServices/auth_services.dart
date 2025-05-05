@@ -7,6 +7,10 @@ class AuthServices with ChangeNotifier {
   // maintains the state
   Stream<User?> get authStateChange => firebaseAuth.authStateChanges();
   String? _uid;
+  String? _userName, _gender, _email;
+  String? get userName => _userName;
+  String? get gender => _gender;
+  String? get email => _email;
 
   String? get uid => _uid;
 
@@ -15,18 +19,29 @@ class AuthServices with ChangeNotifier {
     notifyListeners(); // Notify listeners when the UID changes
   }
 
+  void setProfileData({String? username, String? gender, String? email}) {
+    _userName = username;
+    _email = email;
+    _gender = gender;
+    notifyListeners();
+  }
+
   // for signin
   Future<UserCredential> signIn(
       {required String email, required String password}) async {
-    return await firebaseAuth.signInWithEmailAndPassword(
+    final userCredential = await firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
+    setUid(userCredential.user?.uid); // Set the UID after sign-in
+    return userCredential;
   }
 
   // for creating a user
   Future<UserCredential> createUser(
       {required String email, required String password}) async {
-    return await firebaseAuth.createUserWithEmailAndPassword(
+    final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
+    setUid(userCredential.user?.uid); // Set the UID after user creation
+    return userCredential;
   }
 
   // for signout
