@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_connection_project/core/firebase/AuthServices/auth_services.dart';
 import 'package:firebase_connection_project/core/firebase/DatabaseServices/blog_database.dart';
-import 'package:firebase_connection_project/core/firebase/DatabaseServices/user_database.dart';
 import 'package:firebase_connection_project/pages/HomePage/widgets/blog_container.dart';
 import 'package:firebase_connection_project/pages/HomePage/widgets/title_head.dart';
 import 'package:flutter/material.dart';
-
-import 'package:provider/provider.dart';
 
 class HomeMainPage extends StatefulWidget {
   const HomeMainPage({super.key});

@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_connection_project/core/const/capitalize_data.dart';
 import 'package:firebase_connection_project/core/firebase/AuthServices/auth_services.dart';
 import 'package:firebase_connection_project/core/firebase/DatabaseServices/user_database.dart';
 import 'package:firebase_connection_project/core/provider/theme_provider.dart';
-import 'package:firebase_connection_project/pages/LoginPage/widgets/input_text_field.dart';
 import 'package:firebase_connection_project/pages/ProfileInfo/widgets/profile_data_container.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
