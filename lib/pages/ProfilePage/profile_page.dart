@@ -1,5 +1,7 @@
+import 'package:firebase_connection_project/core/const/capitalize_data.dart';
 import 'package:firebase_connection_project/core/firebase/AuthServices/auth_services.dart';
-import 'package:firebase_connection_project/pages/ProfilePage/widgets/data_container.dart';
+import 'package:firebase_connection_project/core/firebase/DatabaseServices/user_database.dart';
+import 'package:firebase_connection_project/pages/ProfileInfo/profile_info.dart';
 import 'package:firebase_connection_project/pages/ProfilePage/widgets/tab_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,86 +18,93 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final userData = Provider.of<AuthServices>(context, listen: false);
+    final UserProfileData = UserDatabase();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: ListView(
-          children: [
-            Column(
-              children: [
-                Text(
-                  userData.userName.toString(),
-                  style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 25,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Card(
-                  elevation: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        DataContainer(
-                          countNumber: "116",
-                          countName: "posts",
-                        ),
-                        DataContainer(
-                          countNumber: "449",
-                          countName: "followers",
-                        ),
-                        DataContainer(
-                          countNumber: "661",
-                          countName: "following",
-                        ),
-                      ],
+        child: FutureBuilder<Map<String, dynamic>?>(
+          future: UserProfileData.getUserData(userData.uid.toString()),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator.adaptive();
+            } else if (snapshot.hasData) {
+              final user = snapshot.data!;
+              return ListView(
+                children: [
+                  Text(
+                    user["username"].toString().toTitleCase,
+                    style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 25,
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 4,
-              child: Text(
-                "Write your bio here",
-                style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            SizedBox(
-              height: 50,
-              child: MaterialButton(
-                color: Theme.of(context).colorScheme.primary,
-                onPressed: () {},
-                child: Text("Edit Profile"),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: Theme.of(context).colorScheme.secondary,
-              thickness: 0.6,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            //---- tab bar for profile page ---//
-            TabWidget(),
-          ],
+
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 1,
+                    child: Card(
+                      elevation: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              user["bio"].toString().toTitleCase,
+                              style: GoogleFonts.poppins(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: MediaQuery.of(context).size.width / 1,
+                              child: MaterialButton(
+                                color: Theme.of(context).colorScheme.primary,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProfileInfo(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  "Profile info",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Divider(
+                    color: Theme.of(context).colorScheme.secondary,
+                    thickness: 0.6,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  //---- tab bar for profile page ---//
+                  TabWidget(),
+                ],
+              );
+            } else {
+              return Text("No data found");
+            }
+          },
         ),
       ),
     );

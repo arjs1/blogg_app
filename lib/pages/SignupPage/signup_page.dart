@@ -15,6 +15,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final bioController = TextEditingController();
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -27,9 +28,11 @@ class _SignupPageState extends State<SignupPage> {
           email: emailController.text, password: passwordController.text);
 
       Provider.of<AuthServices>(context, listen: false).setProfileData(
-          username: usernameController.text,
-          gender: _selectedGender,
-          email: emailController.text);
+        username: usernameController.text,
+        gender: _selectedGender,
+        email: emailController.text,
+        bio: bioController.text,
+      );
 
       UserDatabase().saveUserData(context);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -82,6 +85,11 @@ class _SignupPageState extends State<SignupPage> {
               controller: usernameController,
               hinttext: "Username",
               obscuretext: false),
+          InputTextField(
+            controller: bioController,
+            hinttext: "Bio",
+            obscuretext: false,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Row(

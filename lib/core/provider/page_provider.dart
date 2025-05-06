@@ -56,4 +56,39 @@ class PageProvider with ChangeNotifier {
         .snapshots()
         .map((doc) => doc.data()?['likesCount'] ?? 0);
   }
+
+  // for bookmark
+
+  Future<void> toggleBookmark(String blogId) async {
+    final bookmarkRef = _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('savedblogs')
+        .doc(blogId);
+
+    final doc = await bookmarkRef.get();
+
+    if (!doc.exists) {
+      // Bookmark
+      await bookmarkRef.set({
+        'blogId': blogId,
+      });
+    } else {
+      // Unbookmark
+      await bookmarkRef.delete();
+    }
+
+    notifyListeners();
+  }
+
+  /// BOOKMARK - Check if a blog is bookmarked
+  Stream<bool> isBlogBookmarked(String blogId) {
+    return _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('savedblogs')
+        .doc(blogId)
+        .snapshots()
+        .map((snapshot) => snapshot.exists);
+  }
 }

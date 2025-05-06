@@ -41,4 +41,34 @@ class BlogDatabase {
         .orderBy('uploadedAt', descending: true)
         .snapshots();
   }
+
+  // this method is used to get the savedblogs from the user
+  Stream<List<Map<String, dynamic>>> streamLoggedInSavedBlogs(
+      {required String uid}) {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('savedblogs')
+        .snapshots()
+        .asyncMap(
+      (snapshot) async {
+        List<String> blogIds = snapshot.docs.map((doc) => doc.id).toList();
+
+        // fetch blogs from the 'blogs' collection
+        List<Map<String, dynamic>> fullBlogs = [];
+
+        for (String id in blogIds) {
+          final blogDoc = await FirebaseFirestore.instance
+              .collection('blogs')
+              .doc(id)
+              .get();
+          if (blogDoc.exists) {
+            fullBlogs.add(blogDoc.data()!);
+          }
+        }
+
+        return fullBlogs;
+      },
+    );
+  }
 }

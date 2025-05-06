@@ -48,7 +48,8 @@ class _CreatePageState extends State<CreatePage> {
           description: description,
           category: category,
           userId: Provider.of<AuthServices>(context, listen: false).uid ?? "",
-          username: "aryanj");
+          username:
+              Provider.of<AuthServices>(context, listen: false).userName ?? "");
       setState(() {
         titleController.clear();
         descriptionController.clear();

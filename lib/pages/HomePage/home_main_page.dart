@@ -16,7 +16,7 @@ class HomeMainPage extends StatefulWidget {
 }
 
 class _HomeMainPageState extends State<HomeMainPage> {
-  final userData = UserDatabase().getUserData("qnp2XbR0Y7XbK9CUf195k6n9kQa2");
+  // final userData = UserDatabase().getUserData("qnp2XbR0Y7XbK9CUf195k6n9kQa2");s
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,12 +56,12 @@ class _HomeMainPageState extends State<HomeMainPage> {
                 );
               },
             ),
-            TextButton(
-                onPressed: () async {
-                  await Provider.of<AuthServices>(context, listen: false)
-                      .signOut();
-                },
-                child: Text("signout"))
+            // TextButton(
+            //     onPressed: () async {
+            //       await Provider.of<AuthServices>(context, listen: false)
+            //           .signOut();
+            //     },
+            //     child: Text("signout"))
           ],
         ),
       ),
