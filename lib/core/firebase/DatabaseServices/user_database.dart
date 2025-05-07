@@ -9,7 +9,7 @@ class UserDatabase {
   Future<void> saveUserData(BuildContext context) async {
     try {
       final userData = Provider.of<AuthServices>(context, listen: false);
-      // print("__________ :: ${userData.uid}");
+      print("__________ :: ${userData.userName}");
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userData.uid)

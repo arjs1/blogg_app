@@ -150,16 +150,19 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
                                 children: [
                                   Icon(
                                     Icons.bookmark_added,
+                                    color: Colors.white,
                                   ),
                                   Text(
                                     "Bookmarked",
-                                    style: GoogleFonts.poppins(),
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                    ),
                                   )
                                 ],
                               ))
                           : MaterialButton(
                               elevation: 0,
-                              color: Theme.of(context).colorScheme.tertiary,
+                              color: Theme.of(context).colorScheme.primary,
                               onPressed: () {
                                 PageProvider()
                                     .toggleBookmark(widget.blog["blogId"]);
@@ -167,18 +170,17 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
                               child: Row(
                                 spacing: 8,
                                 children: [
-                                  Icon(Icons.bookmark_add_outlined,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary),
+                                  Icon(
+                                    Icons.bookmark_add_outlined,
+                                    color: Colors.white,
+                                  ),
                                   SizedBox(
                                     width: 5,
                                   ),
                                   Text(
                                     "Bookmark",
                                     style: GoogleFonts.poppins(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ],

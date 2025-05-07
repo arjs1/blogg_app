@@ -1,8 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_connection_project/core/firebase/DatabaseServices/blog_database.dart';
-import 'package:firebase_connection_project/pages/HomePage/widgets/blog_container.dart';
+import 'package:firebase_connection_project/pages/HomePage/widgets/all_page.dart';
+import 'package:firebase_connection_project/pages/HomePage/widgets/category_page.dart';
 import 'package:firebase_connection_project/pages/HomePage/widgets/title_head.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeMainPage extends StatefulWidget {
   const HomeMainPage({super.key});
@@ -12,7 +12,6 @@ class HomeMainPage extends StatefulWidget {
 }
 
 class _HomeMainPageState extends State<HomeMainPage> {
-  // final userData = UserDatabase().getUserData("qnp2XbR0Y7XbK9CUf195k6n9kQa2");s
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,31 +26,120 @@ class _HomeMainPageState extends State<HomeMainPage> {
             Divider(
               color: Theme.of(context).colorScheme.secondary,
             ),
-            StreamBuilder<QuerySnapshot>(
-              stream: BlogDatabase().streamAllBlogs(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-
-                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(child: Text('No blogs yet.'));
-                }
-                final blogs = snapshot.data!.docs;
-                return ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: blogs.length,
-                  itemBuilder: (context, index) {
-                    final blog = blogs[index];
-
-                    return BlogContainer(
-                      blog: blog,
-                    );
-                  },
-                );
-              },
+            SizedBox(
+              height: 5,
             ),
+            DefaultTabController(
+              length: 10,
+              child: Column(
+                children: [
+                  TabBar(
+                    isScrollable: true,
+                    dividerHeight: 0,
+                    unselectedLabelColor:
+                        const Color.fromARGB(255, 116, 116, 116),
+                    tabs: [
+                      Text(
+                        "All",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        "Technology",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        "Travel",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        "Lifestyle",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        "Fashion",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        "Finance",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        "Music",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        "Marketing",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        "Movies",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        "Politics",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: TabBarView(
+                      children: [
+                        AllPage(),
+                        CategoryPage(
+                          categoryName: "Technology",
+                        ),
+                        CategoryPage(
+                          categoryName: "Travel",
+                        ),
+                        CategoryPage(
+                          categoryName: "Lifestyle",
+                        ),
+                        CategoryPage(
+                          categoryName: "Fashion",
+                        ),
+                        CategoryPage(
+                          categoryName: "Finance",
+                        ),
+                        CategoryPage(
+                          categoryName: "Music",
+                        ),
+                        CategoryPage(
+                          categoryName: "Marketing",
+                        ),
+                        CategoryPage(
+                          categoryName: "Movies",
+                        ),
+                        CategoryPage(
+                          categoryName: "Politics",
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             // TextButton(
             //     onPressed: () async {
             //       await Provider.of<AuthServices>(context, listen: false)

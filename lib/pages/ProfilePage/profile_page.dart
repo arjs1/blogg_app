@@ -77,6 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   "Profile info",
                                   style: GoogleFonts.poppins(
                                     fontSize: 15,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),

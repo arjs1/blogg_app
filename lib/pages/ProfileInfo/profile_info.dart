@@ -21,10 +21,13 @@ class _ProfileInfoState extends State<ProfileInfo> {
     final UserProfileData = UserDatabase();
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           "Profile info",
-          style: GoogleFonts.poppins(),
+          style: GoogleFonts.poppins(
+            color: Colors.white,
+          ),
         ),
         actions: [
           IconButton(
@@ -33,8 +36,13 @@ class _ProfileInfoState extends State<ProfileInfo> {
                     .toggleApperance();
               },
               icon: Provider.of<ThemeProvider>(context).ispressed
-                  ? Icon(Icons.nightlight_round_outlined)
-                  : Icon(Icons.light_mode)),
+                  ? Icon(
+                      Icons.nightlight_round_outlined,
+                    )
+                  : Icon(
+                      Icons.light_mode,
+                      color: Colors.white,
+                    )),
         ],
       ),
       body: Padding(

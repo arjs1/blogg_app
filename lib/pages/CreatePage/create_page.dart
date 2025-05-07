@@ -43,6 +43,7 @@ class _CreatePageState extends State<CreatePage> {
   void submitToDatabase(
       String title, String description, String category) async {
     try {
+      print(Provider.of<AuthServices>(context, listen: false).userName);
       await BlogDatabase().createBlog(
           title: title,
           description: description,
@@ -184,6 +185,7 @@ class _CreatePageState extends State<CreatePage> {
                   "Publish",
                   style: GoogleFonts.poppins(
                     fontSize: 18,
+                    color: Colors.white,
                   ),
                 ),
               ),

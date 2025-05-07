@@ -33,6 +33,15 @@ class BlogDatabase {
         .snapshots();
   }
 
+  // this method is used to get the categorized blogs in the database
+  Stream<QuerySnapshot> streamCategorizedBlogs({required String category}) {
+    return FirebaseFirestore.instance
+        .collection('blogs')
+        .orderBy('uploadedAt', descending: true)
+        .where("category", isEqualTo: category)
+        .snapshots();
+  }
+
   // this method is used to get the logged-in user blogs from the database
   Stream<QuerySnapshot> streamLoggedInUserBlogs({required String userId}) {
     return FirebaseFirestore.instance
