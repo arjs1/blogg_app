@@ -18,6 +18,7 @@ class _HomeMainPageState extends State<HomeMainPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
+          physics: AlwaysScrollableScrollPhysics(),
           children: [
             TitleHead(),
             SizedBox(
@@ -139,13 +140,6 @@ class _HomeMainPageState extends State<HomeMainPage> {
                 ],
               ),
             ),
-
-            // TextButton(
-            //     onPressed: () async {
-            //       await Provider.of<AuthServices>(context, listen: false)
-            //           .signOut();
-            //     },
-            //     child: Text("signout"))
           ],
         ),
       ),

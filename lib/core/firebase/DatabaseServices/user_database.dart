@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UserDatabase {
-  // to publish the register user credential to the database
-
   Future<void> saveUserData(BuildContext context) async {
     try {
       final userData = Provider.of<AuthServices>(context, listen: false);

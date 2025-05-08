@@ -50,8 +50,6 @@ class _CategoryPageState extends State<CategoryPage> {
         final blogs = snapshot.data!;
 
         return ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
           itemCount: blogs.length,
           itemBuilder: (context, index) {
             final blog = blogs[index];

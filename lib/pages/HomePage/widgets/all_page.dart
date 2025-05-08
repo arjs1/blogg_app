@@ -25,12 +25,11 @@ class _AllPageState extends State<AllPage> {
         }
         final blogs = snapshot.data!.docs;
         return ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
           itemCount: blogs.length,
           itemBuilder: (context, index) {
             final blog = blogs[index];
-
             return BlogContainer(
               blog: blog,
             );

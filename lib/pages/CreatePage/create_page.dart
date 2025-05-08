@@ -6,14 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-// title': title,
-//       'description': description,
-//       'category': category,
-//       // 'coverImageUrl': coverImageUrl ?? '',
-//       'userId': userId,
-//       'username': username,
-//       'likesCount': 0,
-//       'uploadedAt': timestamp,
 class CreatePage extends StatefulWidget {
   const CreatePage({super.key});
 
